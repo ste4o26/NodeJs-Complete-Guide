@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{name}} Details</title>
+    <link rel="stylesheet" href="/css/reset.css">
+    <link rel="stylesheet" href="/css/header.css">
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/button.css">
+    <link rel="stylesheet" href="/css/product-card.css">
+    <link rel="stylesheet" href="/css/product-details.css">
+</head>
+
+<body>
+    {{> header}}
+
+    <main class="site-main">
+        <header>
+            <h1>{{name}} Details</h1>
+        </header>
+
+        <article class="product-card">
+            <header class="card-header">
+                <h1>{{name}}</h1>
+            </header>
+
+            <div class="card-img">
+                <img src="{{imageUrl}}" alt="{{name}}">
+            </div>
+
+            <div class="card-content">
+                <h2 class="product-price">£{{price}}</h2>
+                <p class="product-description">{{description}}</p>
+            </div>
+
+            <div class="buttons-container">
+                <form action="/admin/products/delete/{{id}}" method="POST" class="form-group">
+                    <button type="submit" class="button">Delete</button>
+                </form>
+
+                <form action="/cart" method="POST" class="form-group">
+                    <button type="submit" class="button" id="add-to-cart-btn">Add To Cart</button>
+                    <input type="hidden" name="productId" value="{{id}}">
+                </form>
+
+                <a href="/admin/products/edit/{{id}}" class="button">Edit</a>
+
+            </div>
+        </article>
+    </main>
+</body>
+
+</html>

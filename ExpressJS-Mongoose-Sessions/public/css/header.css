@@ -1,0 +1,35 @@
+.site-header {
+    display: inline-block;
+    position: sticky;
+    min-width: 100%;
+    background-color: aquamarine;
+}
+
+.login-button {
+    position: relative;
+    left: 67em;
+}
+
+.logout-button {
+    position: relative;
+    left: 40em;
+}
+
+.site-header .nav-list {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    list-style-type: none;
+}
+
+
+.site-header .nav-list li {
+    padding: 0.5em 1em;
+    margin: 0 1em;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
+}

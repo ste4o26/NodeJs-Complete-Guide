@@ -1,0 +1,37 @@
+.buttons-container {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.button {
+    color: white;
+    text-align: center;
+    font-weight: bold;
+    background-color: rgb(71, 135, 133);
+    text-decoration: none;
+    width: auto;
+    border: none;
+    border-radius: 0.3em;
+    cursor: pointer;
+    width: max-content;
+    font-size: 1em;
+}
+
+.cart-checkout {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 2em auto;
+}
+
+.button,
+.buttons-container .form-group,
+.buttons-container .button, 
+.buttons-container a {
+    padding: 0.4em;
+    margin: 0;
+}

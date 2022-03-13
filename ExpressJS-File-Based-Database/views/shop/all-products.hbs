@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Products</title>
+    <link rel="stylesheet" href="/css/reset.css">
+    <link rel="stylesheet" href="/css/header.css">
+    <link rel="stylesheet" href="/css/button.css">
+    <link rel="stylesheet" href="/css/product-card.css">
+    <link rel="stylesheet" href="/css/main.css">
+</head>
+
+<body>
+    {{> header}}
+
+    <main class="site-main">
+        <header>
+            <h1>Wellcome to the product shop</h1>
+        </header>
+
+        {{#if hasProducts}}
+        <div class="products-container">
+            {{#each products}}
+            <article class="product-card">
+                <header class="card-header">
+                    <h1>{{this.name}}</h1>
+                </header>
+
+                <div class="card-img">
+                    <img src="{{this.imageUrl}}" alt="{{this.name}}">
+                </div>
+
+                <div class="card-content">
+                    <h2 class="product-price">£{{this.price}}</h2>
+                </div>
+
+                <div class="buttons-container">
+                    <a href="/products/details/{{this.id}}" class="button">Details</a>
+
+                    <form action="/cart" method="POST" class="form-group">
+                        <button type="submit" class="button" id="add-to-cart-btn">Add To Cart</button>
+                        <input type="hidden" name="productId", value="{{this.id}}">
+                    </form>
+                </div>
+            </article>
+            {{/each}}
+        </div>
+
+        {{else}}
+        <h1>No products have been found!</h1>
+
+        {{/if}}
+    </main>
+</body>
+
+</html>

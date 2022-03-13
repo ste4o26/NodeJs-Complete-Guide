@@ -1,0 +1,18 @@
+<header class="site-header">
+    <nav class="site-nav">
+        <ul class="nav-list">
+            <li><a href="/">Home</a></li>
+            <li><a href="/products/all">All Products</a></li>
+
+            {{#if isLoggedIn}}
+            <li><a href="/orders">My Orders</a></li>
+            <li><a href="/cart">My Cart</a></li>
+            <li><a href="/admin/products/add">Add Product</a></li>
+            <li class="logout-button"><a href="/logout">Logout</a></li>
+            
+            {{else}}
+            <li class="login-button"><a href="/login">Login</a></li>
+            {{/if}}
+        </ul>
+    </nav>
+</header>

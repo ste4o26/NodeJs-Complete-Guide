@@ -1,0 +1,15 @@
+.site-footer {
+    position: relative;
+    bottom: -1em;
+    padding: 0.2em;
+    width: 100%;
+    text-align: center;
+    box-sizing: border-box;
+    background-color: rgb(105, 167, 165);
+}
+
+.footer-container {
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+}

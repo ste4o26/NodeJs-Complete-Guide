@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Orders</title>
+    <link rel="stylesheet" href="/css/reset.css">
+    <link rel="stylesheet" href="/css/header.css">
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/order-card.css">
+</head>
+
+<body>
+    {{> header}}
+
+    <main class="site-main">
+        <header>
+            <h1>My Orders</h1>
+        </header>
+
+        {{#if hasOrders}}
+        <section class="orders-container">
+            <ul class="list">
+
+                {{#each orders}}
+                <li class="order-card">
+                    <header class="order-header">
+                        <h2>#{{this.id}}</h2>
+                    </header>
+                    <div>
+                        <ul class="list">
+
+                            {{#each this.products}}
+                            <li class="list-item">
+                                <p>{{this.name}}: {{this.order_product.quantity}}</p>
+                            </li>
+                            {{/each}}
+
+                        </ul>
+                    </div>
+                </li>
+                {{/each}}
+
+            </ul>
+        </section>
+
+        {{else}}
+        <h1>You don't have any orders yet.</h1>
+
+        {{/if}}
+    </main>
+</body>
+
+</html>

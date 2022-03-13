@@ -1,0 +1,27 @@
+.form-group {
+    border: 2px solid rgb(71, 135, 133);
+    border-radius: 0.2em;
+    background-color: aquamarine;
+    width: 30%;
+    height: 80%;
+    margin: 1em;
+    padding: 1em 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.form-control {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    margin: 1em 0;
+}
+
+.form-control input, 
+.form-control textarea {
+    border: 2px solid rgb(71, 135, 133);
+    border-radius: 0.2em;
+}   
