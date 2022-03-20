@@ -1,9 +1,0 @@
-.site-main {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    max-width: 90%;
-    margin: 3em auto;
-    min-height: 70vh;
-}

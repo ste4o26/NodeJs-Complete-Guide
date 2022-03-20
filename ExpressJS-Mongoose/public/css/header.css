@@ -1,0 +1,38 @@
+.site-header {
+    display: inline-block;
+    position: sticky;
+    min-width: 100%;
+    background-color: aquamarine;
+}
+
+.auth-buttons-container {
+    display: flex;
+    min-width: 13em;
+    align-items: center;
+    justify-content: space-evenly;
+    position: absolute;
+    right: 2em;
+}
+
+.auth-buttons-container.loggedInUser {
+    right: 0em;
+}
+
+.site-header .nav-list {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    list-style-type: none;
+}
+
+
+.site-header .nav-list li {
+    padding: 0.5em 1em;
+    margin: 0 1em;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
+}
