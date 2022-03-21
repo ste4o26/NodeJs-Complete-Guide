@@ -8,7 +8,7 @@ const authRoutes = require('./routes/auth-routes');
 const localsMiddleware = require('./middlewares/locals-middleware');
 
 const expressConfiguration = require('./configurations/express-configuration');
-const MONGODB_URI = "mongodb+srv://ste4o26:mongodb%40P123@cluster0.ohphy.mongodb.net/node-complete-guide?retryWrites=true&w=majority";
+const MONGODB_URI = "Your URL";
 
 const app = express();
 expressConfiguration(app);
