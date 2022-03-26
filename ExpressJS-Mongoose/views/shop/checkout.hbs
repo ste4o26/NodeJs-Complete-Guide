@@ -8,11 +8,66 @@
     <title>Checkout</title>
     <link rel="stylesheet" href="/css/reset.css">
     <link rel="stylesheet" href="/css/header.css">
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/footer.css">
+    <link rel="stylesheet" href="/css/form.css">
+    <link rel="stylesheet" href="/css/button.css">
+    <link rel="stylesheet" href="/css/product-card.css">
+
 </head>
 
 <body>
     {{> header}}
-    <h1>Complete your checkout</h1>
+
+    <main class="site-main">
+        {{#if hasProducts}}
+        <div class="products-container">
+            {{#each products}}
+            <article class="product-card" id="cart-product-card">
+                <header class="card-header">
+                    <h1>{{this.name}}</h1>
+                </header>
+
+                <div class="card-img">
+                    <img src="{{this.imageUrl}}" alt="{{this.name}}">
+                </div>
+
+                <div class="card-content">
+                    <p>Quantity: {{this.quantity}}</p>
+                    <h2 class="product-price">£{{this.price}}</h2>
+                </div>
+            </article>
+            {{/each}}
+        </div>
+
+        {{else}}
+        <h1>No products have been found!</h1>
+        {{/if}}
+
+        <div>
+            <h3>Amount: {{totalPrice}}</h3>
+        </div>
+
+        <div>
+            <button class="button" id="order-button">Order now</button>
+            <input type="hidden" id="sessionId" value="{{sessionId}}">
+
+            <script src="https://js.stripe.com/v3/"></script>
+            <script>
+                var stripe = Stripe('pk_test_51KhZteLQtMQ2ylO4RUm0Aw81QZmOgovDvXUC494zpVrdn6XswSeq5iewYs2qpmOlzsZlZDQPISMGZyGqLMEYOgwL00ErJ48VCM');
+                var orderButton = document.getElementById('order-button');
+                const sessionId = document.getElementById('sessionId').value;
+
+                orderButton.addEventListener('click', function () {
+                    stripe.redirectToCheckout({
+                        sessionId: sessionId
+                    })
+                })
+            </script>
+        </div>
+    </main>
+
+    {{> footer}}
 </body>
 
 </html>

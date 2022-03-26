@@ -6,6 +6,7 @@ const shopRoutes = require('./routes/shop-routes');
 const errorRoutes = require('./routes/error-routes');
 const authRoutes = require('./routes/auth-routes');
 const localsMiddleware = require('./middlewares/locals-middleware');
+const errorController = require('./controllers/error-controller');
 
 const expressConfiguration = require('./configurations/express-configuration');
 const MONGODB_URI = "Your URL";
@@ -18,6 +19,10 @@ app.use('/admin', adminRoutes);
 app.use(shopRoutes);
 app.use(authRoutes);
 app.use(errorRoutes);
+
+app.use((error, request, response, next) => {
+    errorController.getInternalServerError(error, request, response, next);
+});
 
 mongoose
     .connect(MONGODB_URI)

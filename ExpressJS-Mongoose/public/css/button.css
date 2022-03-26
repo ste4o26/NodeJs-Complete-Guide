@@ -35,3 +35,8 @@
     padding: 0.4em;
     margin: 0;
 }
+
+.pagination {
+    min-width: 100%;
+    margin-top: 3em;
+}

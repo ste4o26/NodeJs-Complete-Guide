@@ -58,10 +58,11 @@
 
         <footer class="cart-checkout">
             <h2>Total Price: £{{totalPrice}}</h2>
-            <form action="/orders" method="POST">
+            <a href="/checkout">Proceed to checkout</a>
+            {{!-- <form action="/orders" method="POST">
                 <input type="hidden" name="_csrf" value="{{csrfToken}}">
                 <button type="submit" class="button">Checkout</button>
-            </form>
+            </form> --}}
         </footer>
     </main>
 

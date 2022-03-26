@@ -56,6 +56,18 @@
 
         </div>
 
+        <section class="pagination">
+            <div class="buttons-container">
+                {{#if hasPrevPage}}
+                <a href="?page={{prevPage}}" class="button">Prev</a>
+                {{/if}}
+
+                {{#if hasNextPage}}
+                <a href="?page={{nextPage}}" class="button">Next</a>
+                {{/if}}
+            </div>
+        </section>
+
         {{else}}
         <h1>No products have been found!</h1>
 

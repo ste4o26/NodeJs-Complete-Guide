@@ -2,6 +2,9 @@ const Product = require('../models/product');
 const Role = require('../models/role');
 const User = require('../models/user');
 const validator = require('express-validator');
+const errorController = require('./error-controller');
+
+const ITEMS_PER_PAGE = 3;
 
 exports.getAddProduct = (request, response, next) => {
     response.render('admin/add-product', {
@@ -17,10 +20,12 @@ exports.getAddProduct = (request, response, next) => {
 exports.postAddProduct = (request, response, next) => {
     const errors = validator.validationResult(request);
     if (!errors.isEmpty()) {
-        return response.render('admin/add-product', {
-            errorMessage: errors.array()[0].msg,
-            oldInput: { ...request.body }
-        });
+        return response
+            .status(422)
+            .render('admin/add-product', {
+                errorMessage: errors.array()[0].msg,
+                oldInput: { ...request.body }
+            });
     }
 
     User
@@ -37,20 +42,35 @@ exports.postAddProduct = (request, response, next) => {
         })
         .then(product => product.save())
         .then(() => response.redirect('/products/all'))
-        .catch(error => console.error(error));
+        .catch(error => next(errorController.getError(error.message, 500)));
 }
 
 exports.getAllProducts = (request, response, next) => {
-    Product.find()
+    const page = Number(request.query.page ? request.query.page : 1);
+    let totalProductsCount;
+
+    Product
+        .countDocuments()
+        .then(productsCount => {
+            totalProductsCount = productsCount;
+
+            return Product.find()
+                .skip((page - 1) * ITEMS_PER_PAGE)
+                .limit(ITEMS_PER_PAGE);
+        })
         .then(products => {
             const templateData = {
                 products: [...products],
-                hasProducts: products.length > 0
+                hasProducts: products.length > 0,
+                hasNextPage: page * ITEMS_PER_PAGE < totalProductsCount,
+                hasPrevPage: page > 1,
+                nextPage: page + 1,
+                prevPage: page - 1
             };
 
             response.render('shop/all-products', templateData);
         })
-        .catch(error => console.error(error));
+        .catch(error => next(errorController.getError(error.message, 500)));
 }
 
 exports.getProductDetails = (request, response, next) => {
@@ -58,7 +78,7 @@ exports.getProductDetails = (request, response, next) => {
 
     Product.findById(productId)
         .then(product => response.render('shop/product-details', product))
-        .catch(error => console.error(error));
+        .catch(error => next(errorController.getError(error.message, 500)));
 }
 
 exports.getEditProduct = (request, response, next) => {
@@ -69,7 +89,7 @@ exports.getEditProduct = (request, response, next) => {
             product,
             errorMessage: request.flash('authError')
         }))
-        .catch((error) => console.error(error));
+        .catch(error => next(errorController.getError(error.message, 500)));
 }
 
 exports.postEditProduct = (request, response, next) => {
@@ -77,13 +97,17 @@ exports.postEditProduct = (request, response, next) => {
     const errors = validator.validationResult(request);
 
     if (!errors.isEmpty()) {
-        request.flash('authError', errors.array()[0].msg);
-        return response.redirect(`/admin/products/edit/${productData.productId}`);
+        return response
+            .status(422)
+            .render('admin/edit-product', {
+                errorMessage: errors.array()[0].msg,
+                product: { ...request.body }
+            });
     }
 
-    Product.findByIdAndUpdate(productData.productId, productData)
-        .then(product => response.redirect(`/products/details/${product.id}`))
-        .catch(error => console.error(error));
+    Product.findByIdAndUpdate(productData._id, productData)
+        .then(product => response.redirect(`/products/details/${product._id}`))
+        .catch(error => next(errorController.getError(error.message, 500)));
 }
 
 exports.postDeleteProduct = (request, response, next) => {
@@ -92,5 +116,5 @@ exports.postDeleteProduct = (request, response, next) => {
     Product
         .deleteOne({ _id: productId, userId: request.session.user._id })
         .then(() => response.redirect('/products/all'))
-        .catch(error => console.error(error));
+        .catch(error => next(errorController.getError(error.message, 500)));
 }

@@ -5,6 +5,8 @@ const nodemailer = require('nodemailer');
 const sendgridTransport = require('nodemailer-sendgrid-transport');
 const Role = require('../models/role');
 const validator = require('express-validator');
+const errorController = require('./error-controller');
+
 
 const transporter = nodemailer
     .createTransport(sendgridTransport({
@@ -58,10 +60,9 @@ exports.postLogin = (request, response, next) => {
                     request.session.isLoggedIn = true;
                     return response.redirect('/');
                 })
-                .catch(error => console.error(error));
+                .catch(error => next(errorController.getError(error.message, 500)));
         })
-        .catch(error => console.error(error));
-
+        .catch(error => next(errorController.getError(error.message, 500)));
 }
 
 exports.getLogout = (request, response, next) => {
@@ -120,9 +121,9 @@ exports.postRegister = (request, response, next) => {
                         html: `<h1>Successfull registration ${user.username}</h1>`
                     });
                 })
-                .catch(error => console.error(error));
+                .catch(error => next(errorController.getError(error.message, 500)));
         })
-        .catch(error => console.error(error));
+        .catch(error => next(errorController.getError(error.message, 500)));
 }
 
 exports.getResetPassword = (request, response, next) => {
@@ -141,8 +142,11 @@ exports.postResetPassword = (request, response, next) => {
         });
     }
 
-    crypto.randomBytes(32, (err, buffer) => {
-        if (err) return response.redirect('/reset-password');
+    crypto.randomBytes(32, (error, buffer) => {
+        if (error) {
+            request.flash('serverError', error);
+            return response.redirect('/internal-server-error');
+        }
 
         const resetToken = buffer.toString('hex');
         User
@@ -169,9 +173,10 @@ exports.postResetPassword = (request, response, next) => {
                                 `<a href="http://localhost:3000/new-password/${resetToken}">HERE</a> ` +
                                 `to reset your password.</p>`
                         });
-                    });
+                    })
+                    .catch(error => next(errorController.getError(error.message, 500)));
             })
-            .catch(error => console.error(error));
+            .catch(error => next(errorController.getError(error.message, 500)));
     })
 }
 
@@ -192,8 +197,7 @@ exports.getNewPassword = (request, response, next) => {
                 errorMessage: request.flash('authError')
             });
         })
-        .catch(error => console.error(error));
-
+        .catch(error => next(errorController.getError(error.message, 500)));
 }
 
 exports.postNewPassword = (request, response, next) => {
@@ -233,5 +237,5 @@ exports.postNewPassword = (request, response, next) => {
                 html: `<h1>You have successfully reset your password.</h1>`
             });
         })
-        .catch(error => console.error(error));
+        .catch(error => next(errorController.getError(error.message, 500)));
 }

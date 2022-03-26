@@ -18,10 +18,14 @@ router.get('/cart', authMiddleware.isAuthenticated, shopController.getCart);
 
 router.post('/cart', authMiddleware.isAuthenticated, shopController.postAddToCart);
 
-router.post('/cart/products/remove/:productId', authMiddleware.isAuthenticated, shopController.postRemoveFromCart)
+router.post('/cart/products/remove/:productId', authMiddleware.isAuthenticated, shopController.postRemoveFromCart);
+
+router.get('/checkout', authMiddleware.isAuthenticated, shopController.getCheckout);
+
+router.get('/checkout/success', authMiddleware.isAuthenticated, shopController.getCheckoutSuccess);
+
+router.get('/checkout/cancel', authMiddleware.isAuthenticated, shopController.getCheckout);
 
 router.get('/orders', authMiddleware.isAuthenticated, shopController.getOrders);
-
-router.post('/orders', authMiddleware.isAuthenticated, shopController.postOrder);
 
 module.exports = router;

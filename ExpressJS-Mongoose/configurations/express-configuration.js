@@ -8,7 +8,8 @@ const csurf = require('csurf');
 const flash = require('connect-flash');
 
 const rootDir = require('../utils/local-path');
-const MONGODB_URI = "Your URL";
+// const MONGODB_URI = "Your URL";
+const MONGODB_URI = "mongodb+srv://ste4o26:mongodb%40P123@cluster0.ohphy.mongodb.net/node-complete-guide?retryWrites=true&w=majority";
 
 
 const configureApp = (app) => {
