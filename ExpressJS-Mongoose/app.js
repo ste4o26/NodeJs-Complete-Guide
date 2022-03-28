@@ -9,7 +9,8 @@ const localsMiddleware = require('./middlewares/locals-middleware');
 const errorController = require('./controllers/error-controller');
 
 const expressConfiguration = require('./configurations/express-configuration');
-const MONGODB_URI = "Your URL";
+// const MONGODB_URI = "Your URL";
+const MONGODB_URI = "mongodb+srv://ste4o26:mongodb%40P123@cluster0.ohphy.mongodb.net/node-complete-guide?retryWrites=true&w=majority";
 
 const app = express();
 expressConfiguration(app);

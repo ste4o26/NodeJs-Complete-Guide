@@ -1,4 +1,5 @@
-const stripe = require('stripe')('YOUR_SECRET_TEST_KEY');
+// const stripe = require('stripe')('YOUR_SECRET_TEST_KEY');
+const stripe = require('stripe')('sk_test_51KhZteLQtMQ2ylO4GG6BUveRTUFTSGrMiy65g4SqTU2LTjMwoNTzQMus6zWdSGAKxTDz6A58snfD6R1Q4l7aGFcg00Yta5NrF0');
 
 exports.genretaPaymentSession = (products, domain) => {
     const configuredProducts = products.map(product => {

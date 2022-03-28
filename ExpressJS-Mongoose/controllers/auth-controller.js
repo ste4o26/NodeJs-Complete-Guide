@@ -10,7 +10,8 @@ const errorController = require('./error-controller');
 
 const transporter = nodemailer
     .createTransport(sendgridTransport({
-        auth: { api_key: 'Your API key' }
+        // auth: { api_key: 'Your API key' }
+        auth: { api_key: 'SG.DdKwPIb5Rg - auWQ5Tf_euw.Ge6ptJ8UELAS5zrUp70OtN5F5gJFem5CquCdfIE0T38' }
     }))
 
 exports.getLogin = (request, response, next) => {
