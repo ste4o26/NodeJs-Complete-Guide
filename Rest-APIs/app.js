@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const { fileUploadConfig, bodyParserConfig, staticFilesAccessConfig, corsConfig } = require('./configurations/express-configuration');
 const postRoutes = require('./routes/post-routes');
 const authRoutes = require('./routes/auth-routes');
+const userRoutes = require('./routes/user-routes');
 
 const app = express();
 
@@ -14,6 +15,7 @@ app.use(corsConfig);
 
 app.use('/posts', postRoutes);
 app.use('/auth', authRoutes);
+app.use('/users', userRoutes);
 
 app.use((err, req, res, next) => {
     if (!err.status) err.status = 500;
